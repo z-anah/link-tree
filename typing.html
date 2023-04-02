@@ -13,7 +13,14 @@
         .container {
             text-align: center;
             padding-top: 200px;
+            font-size: xx-large;
         }
+
+        table {
+            margin: 0 auto;
+            text-align: center;
+        }
+
 
         .highlight {
             color: rgb(191, 190, 190);
@@ -24,18 +31,29 @@
 
 <body>
     <div id="container" class="container">
-        <div id="text-to-copy">
-            <div class="text-to-copy">test</div>
-        </div>
-        <div id="text-typed"></div>
+        <div id="text-to-copy" class="text-to-copy">test</div>
+        <br>
+        <table>
+            <tr>
+                <td><button id="e_acute">é</button></td>
+                <td><button id="e_grave">è</button></td>
+            </tr>
+            <tr class="text-to-copy">
+                <td>1</td>
+                <td>2</td>
+            </tr>
+        </table>
     </div>
     <script>
         let textToCopy = document.getElementById("text-to-copy");
-        let textTyped = document.getElementById("text-typed");
         let container = document.getElementById("container");
-        let iChar = 0;
+
+        const e_acute_button = document.getElementById("e_acute");
+        const e_grave_button = document.getElementById("e_grave");
+
+        var iChar = 0;
         const words = [
-            "bonjour",
+            "Hélas",
             "Excellent",
             "Bravo",
             "Bon courage!",
@@ -45,66 +63,68 @@
 
         function styleIt(originalText, iChar) {
             return '<span class="text-typed">'
-            + originalText.slice(0, iChar)
-            + '</span>'
-            + '<span class="highlight">'
-            + originalText.charAt(iChar)
-            + '</span>'
-            + '<span class="text-to-copy">'
-            + originalText.slice(iChar + 1)
-            + '</span>';
+                + originalText.slice(0, iChar)
+                + '</span>'
+                + '<span class="highlight">'
+                + originalText.charAt(iChar)
+                + '</span>'
+                + '<span class="text-to-copy">'
+                + originalText.slice(iChar + 1)
+                + '</span>';
+        }
+
+        function checkType(key) {
+            if (key === originalText[iChar]) {
+                var iCharPrim = iChar + 1;
+                const newTextPrim = styleIt(originalText, iCharPrim);
+                textToCopy.innerHTML = newTextPrim;
+                iChar++;
+                // const audioType = new Audio('https://github.com/z-anah/link-tree/blob/main/mixkit-single-key-type-2533.wav?raw=true');
+                // audioType.play();
+            }
+            if (iChar === originalText.length) {
+                setTimeout(function () {
+                    iWords++;
+                    iChar = 0;
+                    iCharPrim = 0;
+                    originalText = words[iWords];
+                    newText = styleIt(originalText, iChar);
+                    textToCopy.innerHTML = newText;
+                    return;
+                }, 250);
+            }
         }
 
         let originalText = words[iWords];
         let newText = styleIt(originalText, iChar);
         textToCopy.innerHTML = newText;
 
+        e_acute_button.addEventListener("click", function () {
+            let key = "é";
+            checkType(key);
+        });
+
+        e_grave_button.addEventListener("click", function () {
+            let key = "è";
+            checkType(key);
+        });
+
+        // Alternatively, you can use keydown event to detect when a key is pressed
+        document.addEventListener("keydown", function (event) {
+            let key = null;
+            if (event.key === "1") {
+                key = "é";
+            } else if (event.key === "2") {
+                key = "è";
+            }
+            checkType(key);
+        });
+
+
         document.onkeydown = function (event) {
             let key = event.key;
-            if (key === originalText[iChar]) {
-                var iCharPrim = iChar + 1;
-                const newTextPrim = styleIt(originalText, iCharPrim);
-                textToCopy.innerHTML = newTextPrim;
-                iChar++;
-            }
-            if (iChar === originalText.length) {
-                iWords++;
-                iChar = 0;
-                iCharPrim = 0;
-                originalText = words[iWords];
-                newText = styleIt(originalText, iChar);
-                textToCopy.innerHTML = newText;
-                return;
-            }
+            checkType(key);
         };
-        container.addEventListener("keydown", function (event) {
-            let keyCode = event.keyCode;
-            let altKey = event.altKey;
-            if (altKey && (keyCode === 69 || keyCode === 73 || keyCode === 85 || keyCode === 79)) {
-                let accent = "";
-                switch (keyCode) {
-                    case 69:
-                        accent = "é";
-                        break;
-                    case 73:
-                        accent = "î";
-                        break;
-                    case 85:
-                        accent = "û";
-                        break;
-                    case 79:
-                        accent = "ô";
-                        break;
-                }
-                if (accent === text[iChar]) {
-                    textTyped.textContent += accent;
-                    iChar++;
-                    if (iChar === text.length) {
-                        alert("You typed all the text!");
-                    }
-                }
-            }
-        });
     </script>
 </body>
 
