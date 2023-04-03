@@ -37,25 +37,32 @@
             <tr>
                 <td><button id="e_acute">é</button></td>
                 <td><button id="e_grave">è</button></td>
+                <td><button id="e_flexe">ê</button></td>
+                <td><button id="e_o">œ</button></td>
+                <td><button id="a_flexe">â</button></td>
             </tr>
             <tr class="text-to-copy">
                 <td>1</td>
                 <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
             </tr>
         </table>
     </div>
+    <script src="la_fiche_de_revision_du_theme_la_culture.js"></script>
     <script>
         let textToCopy = document.getElementById("text-to-copy");
         let container = document.getElementById("container");
 
-        const e_acute_button = document.getElementById("e_acute");
-        const e_grave_button = document.getElementById("e_grave");
+        const e_acute = document.getElementById("e_acute");
+        const e_grave = document.getElementById("e_grave");
+        const e_o = document.getElementById("e_o");
+        const e_flexe = document.getElementById("e_flexe");
+        const a_flexe = document.getElementById("a_flexe");
 
         var iChar = 0;
-        const words = [
-            "Excellent",
-            "Bravo",
-        ];
+        const words = la_fiche_de_revision_du_theme_la_culture.typing;
         let iWords = 0;
 
         function styleIt(originalText, iChar) {
@@ -97,13 +104,28 @@
             }
         }
 
-        e_acute_button.addEventListener("click", function () {
+        e_acute.addEventListener("click", function () {
             let key = "é";
             checkType(key);
         });
 
-        e_grave_button.addEventListener("click", function () {
+        e_grave.addEventListener("click", function () {
             let key = "è";
+            checkType(key);
+        });
+
+        e_o.addEventListener("click", function () {
+            let key = "œ";
+            checkType(key);
+        });
+
+        e_flexe.addEventListener("click", function () {
+            let key = "ê";
+            checkType(key);
+        });
+
+        a_flexe.addEventListener("click", function () {
+            let key = "â";
             checkType(key);
         });
 
@@ -113,6 +135,12 @@
                 key = "é";
             } else if (event.key === "2") {
                 key = "è";
+            } else if (event.key === "3") {
+                key = "ê";
+            } else if (event.key === "4") {
+                key = "œ";
+            } else if (event.key === "5") {
+                key = "â";
             }
             checkType(key);
         });
