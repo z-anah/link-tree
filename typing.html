@@ -53,11 +53,8 @@
 
         var iChar = 0;
         const words = [
-            "Hélas",
             "Excellent",
             "Bravo",
-            "Bon courage!",
-            "Hélas",
         ];
         let iWords = 0;
 
@@ -82,9 +79,14 @@
                 // const audioType = new Audio('https://github.com/z-anah/link-tree/blob/main/mixkit-single-key-type-2533.wav?raw=true');
                 // audioType.play();
             }
-            if (iChar === originalText.length) {
+            else if (iChar === originalText.length - 1) {
                 setTimeout(function () {
                     iWords++;
+                    if (iWords === words.length) {
+                        alert("Bravo! Choisir un niveau!");
+                        textToCopy.innerHTML = "...";
+                        return;
+                    }
                     iChar = 0;
                     iCharPrim = 0;
                     originalText = words[iWords];
@@ -94,10 +96,6 @@
                 }, 250);
             }
         }
-
-        let originalText = words[iWords];
-        let newText = styleIt(originalText, iChar);
-        textToCopy.innerHTML = newText;
 
         e_acute_button.addEventListener("click", function () {
             let key = "é";
@@ -109,7 +107,6 @@
             checkType(key);
         });
 
-        // Alternatively, you can use keydown event to detect when a key is pressed
         document.addEventListener("keydown", function (event) {
             let key = null;
             if (event.key === "1") {
@@ -125,6 +122,10 @@
             let key = event.key;
             checkType(key);
         };
+
+        let originalText = words[iWords];
+        let newText = styleIt(originalText, iChar);
+        textToCopy.innerHTML = newText;
     </script>
 </body>
 
