@@ -41,12 +41,26 @@
                 <td><button id="e_o">œ</button></td>
                 <td><button id="a_flexe">â</button></td>
             </tr>
-            <tr class="text-to-copy">
+            <tr>
                 <td>1</td>
                 <td>2</td>
                 <td>3</td>
                 <td>4</td>
                 <td>5</td>
+            </tr>
+            <tr>
+                <td><button id="a_grave">à</button></td>
+                <td><button id="u_grave">ù</button></td>
+                <td><button id="e_diaer">ë</button></td>
+                <td><button id="i_diaer">ï</button></td>
+                <td><button id="i_circ">î</button></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>0</td>
             </tr>
         </table>
     </div>
@@ -55,11 +69,31 @@
         let textToCopy = document.getElementById("text-to-copy");
         let container = document.getElementById("container");
 
-        const e_acute = document.getElementById("e_acute");
-        const e_grave = document.getElementById("e_grave");
-        const e_o = document.getElementById("e_o");
-        const e_flexe = document.getElementById("e_flexe");
-        const a_flexe = document.getElementById("a_flexe");
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+                let key = button.textContent;
+                checkType(key);
+            });
+        });
+
+        const keyMap = {
+            "1": "é",
+            "2": "è",
+            "3": "ê",
+            "4": "œ",
+            "5": "â",
+            "6": "à",
+            "7": "ù",
+            "8": "ë",
+            "9": "ï",
+            "0": "î",
+        };
+
+        document.addEventListener("keydown", (event) => {
+            let key = keyMap[event.key];
+            checkType(key);
+        });
 
         var iChar = 0;
         const words = la_fiche_de_revision_du_theme_la_culture.typing;
@@ -103,48 +137,6 @@
                 }, 250);
             }
         }
-
-        e_acute.addEventListener("click", function () {
-            let key = "é";
-            checkType(key);
-        });
-
-        e_grave.addEventListener("click", function () {
-            let key = "è";
-            checkType(key);
-        });
-
-        e_o.addEventListener("click", function () {
-            let key = "œ";
-            checkType(key);
-        });
-
-        e_flexe.addEventListener("click", function () {
-            let key = "ê";
-            checkType(key);
-        });
-
-        a_flexe.addEventListener("click", function () {
-            let key = "â";
-            checkType(key);
-        });
-
-        document.addEventListener("keydown", function (event) {
-            let key = null;
-            if (event.key === "1") {
-                key = "é";
-            } else if (event.key === "2") {
-                key = "è";
-            } else if (event.key === "3") {
-                key = "ê";
-            } else if (event.key === "4") {
-                key = "œ";
-            } else if (event.key === "5") {
-                key = "â";
-            }
-            checkType(key);
-        });
-
 
         document.onkeydown = function (event) {
             let key = event.key;
