@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const url = "https://z-anah.github.io/link-tree/";
+        // An array of URLs to open
+        const urls = [url, url];
+
+        // Start opening URLs every 2 seconds
+        let i = 0;
+        const intervalId = setInterval(function () {
+            // Open the next URL in the array
+
+            window.open(urls[i], "_blank");
+            // Increment the index to move to the next URL
+            i++;
+
+            // If we've reached the end of the array, stop the interval
+            if (i >= urls.length) {
+                clearInterval(intervalId);
+            }
+        }, 500);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
